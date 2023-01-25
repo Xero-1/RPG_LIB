@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <string>
+#include <vector>
 
 //////////ENTITY//////////
 class Entity
@@ -22,19 +23,10 @@ public:
     inline void setDescription(std::string s){this->description=s;}
 };
 //////////COUNTER//////////
-class Counter
+struct Counter
 {
-private:
     float _Max;
     float _Current;
-public:
-    inline Counter()
-    {
-        this->_Max=0;
-        this->_Current=0;
-    }
-    inline float Max(){return this->_Max;}
-    inline float Current(){return this->_Current;}
 };
 //////////LEVEL//////////
 class Level
@@ -60,27 +52,30 @@ public:
 //////////STATE//////////
 enum
 {
-    NORMAL=1,
+    NORMAL=0,
     HEALING,
     POISONED,
     BURNING,
     STUNNED,
-    PARALYZED
-} States_Types;
-class State
+    PARALYZED,
+    COUNT_STATES
+} Effect_Types;
+class Effect
 {
 private:
     unsigned short int type;
     unsigned int time;
 public:
-    State();
-    ~State();
+    Effect();
+    ~Effect();
     inline unsigned short int getType(){return this->type;}
     inline unsigned int getTime(){return this->time;}
     inline void setType(unsigned short int i){this->type=i;}
     inline void setTime(unsigned int i){this->time=i;}
-    void changeState(State& obj);
 };
+void addEffect(std::vector<Effect>& obj,Effect newEffect);
+void deleteEffect(std::vector<Effect>& obj,unsigned int index);
+void alteredState(std::vector<Effect>& obj,std::vector<Effect> effects);
 //////////DICE//////////
 class Dice
 {
@@ -106,6 +101,5 @@ public:
 //////////FUNCTIONS//////////
 unsigned int diceRoll(const int faces,const int rolls,const int mod=0);
 bool diceCheck(const int check,const int faces,const int mod=0);
-void causeAlteredStates(unsigned short int nrEffects,State* effects,State* obj);
 
 #endif

@@ -5,36 +5,37 @@
 
 enum
 {
-    STRENGTH=1,
+    STRENGTH=0,
     DEXTERITY,
     CONSTITUTION,
     INTELLIGENCE,
     WISDOM,
-    CHARISMA
+    CHARISMA,
+    COUNT_STATS
 } Stats;
 class Creature: public Entity, public Level
 {
 private:
     Counter HP;
     Counter MANA;
-    State state[PARALYZED];
     Inventory inv;
     unsigned int AC;
     Weapon _weapon;
-    Armor _armorSet[FOOT];
-    unsigned short int stats[CHARISMA];
-    short int statMods[CHARISMA];
+    Armor _armorSet[COUNT_BODY_PARTS];
+    unsigned short int stats[COUNT_STATS];
+    short int statMods[COUNT_STATS];
+	std::vector<Effect> state;
 public:
     Creature();
     ~Creature();
     inline Counter& getHP(){return this->HP;}
     inline Counter& getMANA(){return this->MANA;}
-    inline State* getState(){return this->state;}
     inline Inventory& getInv(){return this->inv;}
     inline unsigned int getAC(){return this->AC;}
     inline void setAC(unsigned int i){this->AC=i;}
     inline unsigned short int* getStats(){return this->stats;}
     inline short int* getStatMods(){return this->statMods;}
+	inline std::vector<Effect>& getState(){return this->state;}
     //////////EQUIPMENT//////////
     inline Weapon& getWeapon(){return this->_weapon;}
     inline void setWeapon(Weapon w){this->_weapon=w;}
@@ -46,8 +47,6 @@ public:
     void useItemFromInv(unsigned int index);
     //////////GAME LOOP//////////
     void update();
-    void updateState();
-
 };
 
 #endif

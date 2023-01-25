@@ -24,6 +24,7 @@ public:
     void addItem(Item& newItem);
     void removeItem(unsigned int index);
     void expand(unsigned int extraSpace=20);
+    bool hasItem(std::string s,unsigned short int itemCant=1);
 };
 
 #endif

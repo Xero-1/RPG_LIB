@@ -7,6 +7,7 @@ Item::Item(): Entity()
     this->rarity=NULL;
     this->valueSell=0;
     this->valueBuy=0;
+	this->magic=false;
 }
 Item::~Item(){}
 //////////WEAPON//////////
@@ -35,7 +36,6 @@ Armor* Armor::Clone()const
 Potion::Potion()
 {
     setType(POTION);
-    this->nrEffects=0;
 }
 Potion::~Potion(){}
 

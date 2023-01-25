@@ -40,12 +40,12 @@ void Creature::equipItemFromInv(unsigned int index)
 }
 void Creature::useItem(Item& item)
 {
-    if(item.getType()==POTION)
-    {
-        Potion *p=dynamic_cast<Potion*>(item.Clone());
-        p->causeEffects(state);
-        delete p;
-    }
+	unsigned short int type=item.getType();
+	if(type==POTION)
+	{
+		Potion* p=dynamic_cast<Potion*>(item.Clone());
+		alteredState(state,p->getEffects());
+	}
 }
 void Creature::useItemFromInv(unsigned int index)
 {
@@ -55,15 +55,4 @@ void Creature::useItemFromInv(unsigned int index)
 //////////GAME LOOP//////////
 void Creature::update()
 {
-    updateState();
-}
-void Creature::updateState()
-{
-    for(int i=0;i<PARALYZED;i++)
-    {
-        if(state[i].getType()!=NORMAL || state[i].getTime()<=0)
-            state[i].setType(NORMAL);
-        else
-            state[i].setTime(state[i].getTime()-1);
-    }
 }

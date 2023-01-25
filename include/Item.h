@@ -2,6 +2,7 @@
 #define ITEM_H
 
 #include "Basics.h"
+#include "Magic.h"
 
 enum
 {
@@ -11,12 +12,13 @@ enum
 } Item_Types;
 enum
 {
-    HEAD=1,
+    HEAD=0,
     CHEST,
     ARM,
     HAND,
     LEG,
-    FOOT
+    FOOT,
+    COUNT_BODY_PARTS
 } Body_Parts;
 //////////ITEM//////////
 class Item: public Entity
@@ -26,6 +28,8 @@ private:
     unsigned short int rarity;
     unsigned int valueSell;
     unsigned int valueBuy;
+	bool magic;
+	Charm enchantment;
 public:
     Item();
     ~Item();
@@ -33,10 +37,13 @@ public:
     inline unsigned short int getRarity(){return this->rarity;}
     inline unsigned int getValueSell(){return this->valueSell;}
     inline unsigned int getValueBuy(){return this->valueBuy;}
-    inline void setType(unsigned short int i){this->type=i;}
+    inline bool getMagic(){return this->magic;}
+	inline Charm& getEnchantment(){return this->enchantment;}
+	inline void setType(unsigned short int i){this->type=i;}
     inline void setRarity(unsigned short int i){this->rarity=i;}
     inline void setValueSell(unsigned int i){this->valueSell=i;}
     inline void setValueBuy(unsigned int i){this->valueBuy=i;}
+	inline void setMagic(bool b){magic=b;}
 
     virtual Item*Clone()const=0;
 };
@@ -72,15 +79,11 @@ public:
 class Potion: public Item
 {
 private:
-    unsigned short int nrEffects;
-    State effects[PARALYZED];
+	std::vector<Effect> effects;
 public:
     Potion();
     virtual ~Potion();
-    inline unsigned short int getNrEffects(){return this->nrEffects;}
-    inline void setNrEffects(unsigned short int i){this->nrEffects=i;}
-    inline State* getEffects(){return this->effects;}
-    inline void causeEffects(State* obj){causeAlteredStates(nrEffects,effects,obj);}
+	inline std::vector<Effect>& getEffects(){return this->effects;}
 
     Potion* Clone()const;
 };

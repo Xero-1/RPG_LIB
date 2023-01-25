@@ -1,16 +1,37 @@
 #include "Basics.h"
 
 //////////STATE//////////
-State::State()
+Effect::Effect()
 {
     this->type=NORMAL;
     this->time=0;
 }
-State::~State(){}
-void State::changeState(State& obj)
+Effect::~Effect(){}
+void addEffect(std::vector<Effect>& obj,Effect newEffect)
 {
-    obj.setType(type);
-    obj.setTime(time);
+	bool b=false;
+	unsigned int size=obj.size();
+	for(int i=0;i<size;i++)
+		if(obj[i].getType()==newEffect.getType())
+		{
+			obj[i].setTime(obj[i].getTime()+newEffect.getTime()/2);
+			b=true;
+			i=size;
+		}
+	if(!b)
+		obj.push_back(newEffect);
+}
+void deleteEffect(std::vector<Effect>& obj,unsigned int index)
+{
+	obj.erase(obj.begin()+index);
+}
+void alteredState(std::vector<Effect>& obj,std::vector<Effect> effects)
+{
+	unsigned int effectsCount=effects.size();
+	for(int i=0;i<effectsCount;i++)
+	{
+		addEffect(obj,effects[i]);
+	}
 }
 //////////DICE//////////
 Dice::~Dice(){}
@@ -42,14 +63,4 @@ bool diceCheck(const int check,const int faces,const int mod)
         return true;
     else
         return false;
-}
-void causeAlteredStates(unsigned short int nrEffects,State* effects,State* obj)
-{
-    for(int i=0;i<nrEffects;i++)
-    {
-        if(obj[i].getType()==NORMAL)
-            effects[i].changeState(obj[i]);
-        else if(obj[i].getType()==effects[i].getType())
-            obj[i].setTime(obj[i].getTime()+(effects[i].getTime()/2));
-    }
 }

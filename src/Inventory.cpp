@@ -46,6 +46,19 @@ void Inventory::expand(unsigned int extraSpace)
         items[i]=nullptr;
     }
     for(int i=nrItems;i<capacity;i++)
-        temp[i]=nullptr;
+    	temp[i]=nullptr;
     items=temp;
+}
+bool Inventory::hasItem(std::string s,unsigned short int itemCant)
+{
+    unsigned int cant=0;
+    for(int i=0;i<nrItems;i++)
+    {
+        if(s==items[i]->getName())
+        	cant++;
+	}
+	if(cant>=itemCant)
+		return true;
+	else
+		return false;
 }
