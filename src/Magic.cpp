@@ -13,6 +13,11 @@ Magic_attack::Magic_attack(): Spell()
 	setType(MAGIC_ATTACK);
 }
 Magic_attack::~Magic_attack(){}
+void Magic_attack::Cast(Counter& objHP,std::vector<Effect>& objState)
+{
+	rollDamage(objHP,dAttack);
+	alteredState(objState,getEffects());
+}
 
 Magic_attack* Magic_attack::Clone()const
 {
@@ -24,6 +29,10 @@ Charm::Charm(): Spell()
 	setType(CHARM);
 }
 Charm::~Charm(){}
+void Charm::Cast(std::vector<Effect>& objState)
+{
+	alteredState(objState,getEffects());
+}
 
 Charm* Charm::Clone()const
 {

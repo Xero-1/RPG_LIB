@@ -64,3 +64,7 @@ bool diceCheck(const int check,const int faces,const int mod)
     else
         return false;
 }
+void rollDamage(Counter& objHP,Dice dAttack)
+{
+	objHP._current-=dAttack.Roll();
+}

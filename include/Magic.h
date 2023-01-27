@@ -23,7 +23,7 @@ public:
 	inline std::vector<Effect>& getEffects(){return this->effects;}
     inline void setCost(unsigned int i){this->cost=i;}
     inline void setType(unsigned short int i){this->type=i;}
-	
+
 	virtual Spell*Clone()const=0;
 };
 //////////MAGIC_ATTACK//////////
@@ -35,6 +35,8 @@ public:
 	Magic_attack();
 	~Magic_attack();
 	inline Dice& getDiceAttack(){return this->dAttack;}
+	void Cast(Counter& objHP,std::vector<Effect>& objState);
+
 	Magic_attack* Clone()const;
 };
 //////////CHARM//////////
@@ -44,6 +46,8 @@ private:
 public:
 	Charm();
 	~Charm();
+	void Cast(std::vector<Effect>& objState);
+
 	Charm* Clone()const;
 };
 #endif

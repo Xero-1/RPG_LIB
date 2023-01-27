@@ -16,7 +16,7 @@ enum
 class Creature: public Entity, public Level
 {
 private:
-    Counter HP;
+	Counter HP;
     Counter MANA;
     Inventory inv;
     unsigned int AC;
@@ -28,7 +28,7 @@ private:
 public:
     Creature();
     ~Creature();
-    inline Counter& getHP(){return this->HP;}
+	inline Counter& getHP(){return this->HP;}
     inline Counter& getMANA(){return this->MANA;}
     inline Inventory& getInv(){return this->inv;}
     inline unsigned int getAC(){return this->AC;}
@@ -47,6 +47,7 @@ public:
     void useItemFromInv(unsigned int index);
     //////////GAME LOOP//////////
     void update();
+	void updateState();
 };
 
 #endif

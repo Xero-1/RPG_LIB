@@ -25,8 +25,8 @@ public:
 //////////COUNTER//////////
 struct Counter
 {
-    float _Max;
-    float _Current;
+    float _max;
+    float _current;
 };
 //////////LEVEL//////////
 class Level
@@ -52,8 +52,7 @@ public:
 //////////STATE//////////
 enum
 {
-    NORMAL=0,
-    HEALING,
+    HEALING=0,
     POISONED,
     BURNING,
     STUNNED,
@@ -101,5 +100,6 @@ public:
 //////////FUNCTIONS//////////
 unsigned int diceRoll(const int faces,const int rolls,const int mod=0);
 bool diceCheck(const int check,const int faces,const int mod=0);
+void rollDamage(Counter& objHP,Dice dAttack);
 
 #endif

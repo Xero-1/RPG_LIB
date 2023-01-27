@@ -10,8 +10,7 @@ Creature::Creature(): Entity(), Level()
         _armorSet[i]=a;
     }
 }
-Creature::~Creature()
-{}
+Creature::~Creature(){}
 //////////EQUIPMENT//////////
 void Creature::setArmorPiece(Armor a)
 {
@@ -55,4 +54,29 @@ void Creature::useItemFromInv(unsigned int index)
 //////////GAME LOOP//////////
 void Creature::update()
 {
+	updateState();
+}
+void Creature::updateState()
+{
+	unsigned int size=state.size();
+	for(int i=0;i<size;i++)
+	{
+		switch(state[i].getType())
+		{
+			case HEALING:
+				break;
+			case POISONED:
+				break;
+			case BURNING:
+				break;
+			case STUNNED:
+				break;
+			case PARALYZED:
+				break;
+		}
+		if(state[i].getTime()<=0)
+			deleteEffect(state,i);
+		else
+			state[i].setTime(state[i].getTime()-1);			
+	}
 }
