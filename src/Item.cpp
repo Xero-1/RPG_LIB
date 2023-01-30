@@ -3,11 +3,10 @@
 //////////ITEM//////////
 Item::Item(): Entity()
 {
-    this->type=NULL;
-    this->rarity=NULL;
-    this->valueSell=0;
-    this->valueBuy=0;
-	this->magic=false;
+    this->_type=NULL;
+    this->_rarity=NULL;
+    this->_valueSell=0;
+    this->_valueBuy=0;
 }
 Item::~Item(){}
 //////////WEAPON//////////
@@ -24,8 +23,8 @@ Weapon* Weapon::Clone()const
 Armor::Armor(): Item()
 {
     setType(ARMOR);
-    this->defence=0;
-    this->partCover=NULL;
+    this->_defence=0;
+    this->_partCover=NULL;
 }
 Armor::~Armor(){}
 Armor* Armor::Clone()const

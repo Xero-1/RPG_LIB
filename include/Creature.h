@@ -2,6 +2,7 @@
 #define CREATURE_H
 
 #include "Inventory.h"
+#include "SpellBook.h"
 
 enum
 {
@@ -13,33 +14,43 @@ enum
     CHARISMA,
     COUNT_STATS
 } Stats;
-class Creature: public Entity, public Level
+class Creature_simple: public Entity
 {
 private:
-	Counter HP;
-    Counter MANA;
-    Inventory inv;
-    unsigned int AC;
-    Weapon _weapon;
-    Armor _armorSet[COUNT_BODY_PARTS];
-    unsigned short int stats[COUNT_STATS];
-    short int statMods[COUNT_STATS];
-	std::vector<Effect> state;
+	Counter _HP;
+	Counter _MANA;
+	unsigned int _AC;
+	Weapon _weapon;
+	Spell_book _spellBook;
 public:
-    Creature();
-    ~Creature();
-	inline Counter& getHP(){return this->HP;}
-    inline Counter& getMANA(){return this->MANA;}
-    inline Inventory& getInv(){return this->inv;}
-    inline unsigned int getAC(){return this->AC;}
-    inline void setAC(unsigned int i){this->AC=i;}
-    inline unsigned short int* getStats(){return this->stats;}
-    inline short int* getStatMods(){return this->statMods;}
-	inline std::vector<Effect>& getState(){return this->state;}
+	Creature_simple();
+	~Creature_simple();
+	inline Counter& getHP(){return this->_HP;}
+	inline Counter& getMANA(){return this->_MANA;}
+	inline unsigned int getAC(){return this->_AC;}
+	inline Weapon& getWeapon(){return this->_weapon;}
+	inline void setAC(unsigned int i){this->_AC=i;}
+	inline void setWeapon(Weapon w){this->_weapon=w;}
+	inline Spell_book& getSpellBook(){return this->_spellBook;}
+};
+
+class Creature_complex: public Creature_simple, public Level
+{
+private:
+    Inventory _inv;
+    Armor _armorSet[COUNT_BODY_PARTS];
+    unsigned short int _stats[COUNT_STATS];
+    short int _statMods[COUNT_STATS];
+	std::vector<Effect> _state;
+public:
+    Creature_complex();
+    ~Creature_complex();
+    inline Inventory& getInv(){return this->_inv;}
+    inline unsigned short int* getStats(){return this->_stats;}
+    inline short int* getStatMods(){return this->_statMods;}
+	inline std::vector<Effect>& getState(){return this->_state;}
     //////////EQUIPMENT//////////
-    inline Weapon& getWeapon(){return this->_weapon;}
-    inline void setWeapon(Weapon w){this->_weapon=w;}
-    inline Armor& getArmorPiece(unsigned int piece){return this->_armorSet[piece-1];}
+    inline Armor& getArmorPiece(unsigned int piece){return this->_armorSet[piece];}
     void setArmorPiece(Armor a);
     void equipItem(Item& item);
     void equipItemFromInv(unsigned int index);

@@ -6,24 +6,19 @@
 class Inventory
 {
 private:
-    Item** items;
-    unsigned int capacity;
-    unsigned int nrItems;
-
-    Counter weight;
+	std::vector<Item*> _items;
+    unsigned int _capacity;
+    bool _expandable;
 public:
     Inventory();
     ~Inventory();
-    //inline unsigned int getNrItems(){return sizeof(this->items)/sizeof(this->items[0]);}
-    inline unsigned int getNrItems(){return this->nrItems;}
-    inline unsigned int getCapacity(){return this->capacity;}
-    inline void setCapacity(unsigned int i){this->capacity=i;}
-    inline void setNrItems(unsigned int i){this->nrItems=i;}
-    inline Counter& getWeight(){return this->weight;}
-    inline Item& operator[](unsigned int index){return *this->items[index];}
-    void addItem(Item& newItem);
-    void removeItem(unsigned int index);
-    void expand(unsigned int extraSpace=20);
+    inline unsigned int getCapacity(){return this->_capacity;}
+	inline bool getExpandable(){return this->_expandable;}
+    inline void setCapacity(unsigned int i){this->_capacity=i;}
+    inline void setExpandable(bool b){this->_expandable=b;}
+    inline Item& operator[](unsigned int index){return *this->_items[index];}
+    bool addItem(Item& newItem);
+    inline void removeItem(unsigned int index){_items.erase(_items.begin()+index);}
     bool hasItem(std::string s,unsigned short int itemCant=1);
 };
 

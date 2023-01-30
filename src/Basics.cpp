@@ -3,8 +3,8 @@
 //////////STATE//////////
 Effect::Effect()
 {
-    this->type=NORMAL;
-    this->time=0;
+    this->_type=NULL;
+    this->_time=0;
 }
 Effect::~Effect(){}
 void addEffect(std::vector<Effect>& obj,Effect newEffect)
@@ -37,14 +37,14 @@ void alteredState(std::vector<Effect>& obj,std::vector<Effect> effects)
 Dice::~Dice(){}
 unsigned int Dice::Roll()
 {
-    return diceRoll(D[0],D[1],D[2]);
+    return diceRoll(_D[0],_D[1],_D[2]);
 }
 std::string Dice::getDescription()
 {
     std::string s;
-    s="<"+std::to_string(D[1])+"D"+std::to_string(D[0]);
-    s+=D[2]>=0?" +":" ";
-    s+=std::to_string(D[2])+">";
+    s="<"+std::to_string(_D[1])+"D"+std::to_string(_D[0]);
+    s+=_D[2]>=0?" +":" ";
+    s+=std::to_string(_D[2])+">";
     return s;
 }
 //////////FUNCTIONS//////////

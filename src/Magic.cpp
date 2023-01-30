@@ -3,8 +3,8 @@
 //////////SPELL//////////
 Spell::Spell(): Entity(), Level()
 {
-    this->cost=0;
-    this->type=NULL;
+    this->_cost=0;
+    this->_type=NULL;
 }
 Spell::~Spell(){}
 //////////MAGIC_ATTACK//////////
@@ -15,7 +15,7 @@ Magic_attack::Magic_attack(): Spell()
 Magic_attack::~Magic_attack(){}
 void Magic_attack::Cast(Counter& objHP,std::vector<Effect>& objState)
 {
-	rollDamage(objHP,dAttack);
+	rollDamage(objHP,_dAttack);
 	alteredState(objState,getEffects());
 }
 

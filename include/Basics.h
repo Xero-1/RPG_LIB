@@ -9,18 +9,18 @@
 class Entity
 {
 private:
-    std::string name;
-    std::string description;
+    std::string _name;
+    std::string _description;
 public:
     inline Entity()
     {
-        this->name="NONE";
-        this->description="NONE";
+        this->_name="NONE";
+        this->_description="NONE";
     }
-    inline std::string getName(){return this->name;}
-    inline std::string getDescription(){return this->description;}
-    inline void setName(std::string s){this->name=s;}
-    inline void setDescription(std::string s){this->description=s;}
+    inline std::string getName(){return this->_name;}
+    inline std::string getDescription(){return this->_description;}
+    inline void setName(std::string s){this->_name=s;}
+    inline void setDescription(std::string s){this->_description=s;}
 };
 //////////COUNTER//////////
 struct Counter
@@ -62,15 +62,15 @@ enum
 class Effect
 {
 private:
-    unsigned short int type;
-    unsigned int time;
+    unsigned short int _type;
+    unsigned int _time;
 public:
     Effect();
     ~Effect();
-    inline unsigned short int getType(){return this->type;}
-    inline unsigned int getTime(){return this->time;}
-    inline void setType(unsigned short int i){this->type=i;}
-    inline void setTime(unsigned int i){this->time=i;}
+    inline unsigned short int getType(){return this->_type;}
+    inline unsigned int getTime(){return this->_time;}
+    inline void setType(unsigned short int i){this->_type=i;}
+    inline void setTime(unsigned int i){this->_time=i;}
 };
 void addEffect(std::vector<Effect>& obj,Effect newEffect);
 void deleteEffect(std::vector<Effect>& obj,unsigned int index);
@@ -79,20 +79,20 @@ void alteredState(std::vector<Effect>& obj,std::vector<Effect> effects);
 class Dice
 {
 private:
-    int D[3];
+    int _D[3];
 public:
     inline Dice()
     {
-        this->D[0]=0;//FACES
-        this->D[1]=0;//ROLLS
-        this->D[2]=0;//MOD
+        this->_D[0]=0;//FACES
+        this->_D[1]=0;//ROLLS
+        this->_D[2]=0;//MOD
     }
     ~Dice();
     inline void setValues(unsigned int faces,unsigned rolls,int mod)
     {
-        this->D[0]=faces;
-        this->D[1]=rolls;
-        this->D[2]=mod;
+        this->_D[0]=faces;
+        this->_D[1]=rolls;
+        this->_D[2]=mod;
     }
     unsigned int Roll();
     std::string getDescription();

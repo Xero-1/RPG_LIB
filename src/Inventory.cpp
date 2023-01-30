@@ -2,59 +2,32 @@
 
 Inventory::Inventory()
 {
-    this->capacity=5;
-    this->nrItems=0;
-    items=new Item*[capacity];
-    for(int i=0;i<capacity;i++)
-        items[i]=nullptr;
+    this->_capacity=5;
+	this->_expandable=false;
 }
 Inventory::~Inventory()
 {
-    for(int i=0;i<nrItems;i++)
-        delete items[i];
-    delete[] items;
+	unsigned int size=_items.size();
+    for(int i=0;i<size;i++)
+      	_items.pop_back();
 }
-void Inventory::addItem(Item& newItem)
+bool Inventory::addItem(Item& newItem)
 {
-    if(nrItems<capacity)
-        items[nrItems++]=newItem.Clone();
-}
-void Inventory::removeItem(unsigned int index)
-{
-    Item** temp=new Item*[capacity];
-    unsigned int itemCount=0;
-    for(int i=0;i<nrItems;i++)
-    {
-        if(i!=index)
-            temp[itemCount++]=items[i]->Clone();
-        delete items[i];
-        items[i]=nullptr;
-    }
-    for(int i=nrItems;i<capacity;i++)
-        temp[i]=nullptr;
-    items=temp;
-    this->nrItems--;
-}
-void Inventory::expand(unsigned int extraSpace)
-{
-    this->capacity+=extraSpace;
-    Item** temp=new Item*[capacity];
-    for(int i=0;i<nrItems;i++)
-    {
-        temp[i]=items[i]->Clone();
-        delete items[i];
-        items[i]=nullptr;
-    }
-    for(int i=nrItems;i<capacity;i++)
-    	temp[i]=nullptr;
-    items=temp;
+    if(_items.size()<_capacity || _expandable)
+	{
+		_items.push_back(newItem.Clone());
+		if(_items.size()>=_capacity)
+			this->_capacity+=5;
+		return true;
+	}else
+		return false;
 }
 bool Inventory::hasItem(std::string s,unsigned short int itemCant)
 {
-    unsigned int cant=0;
-    for(int i=0;i<nrItems;i++)
+    unsigned int cant=0,size=_items.size();
+    for(int i=0;i<size;i++)
     {
-        if(s==items[i]->getName())
+        if(s==_items[i]->getName())
         	cant++;
 	}
 	if(cant>=itemCant)
