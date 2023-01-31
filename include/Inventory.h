@@ -14,7 +14,8 @@ public:
     ~Inventory();
     inline unsigned int getCapacity(){return this->_capacity;}
 	inline bool getExpandable(){return this->_expandable;}
-    inline void setCapacity(unsigned int i){this->_capacity=i;}
+	inline unsigned int getSize(){return this->_items.size();}
+	inline void setCapacity(unsigned int i){this->_capacity=i;}
     inline void setExpandable(bool b){this->_expandable=b;}
     inline Item& operator[](unsigned int index){return *this->_items[index];}
     bool addItem(Item& newItem);
