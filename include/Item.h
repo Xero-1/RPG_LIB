@@ -8,7 +8,8 @@ enum
 {
     WEAPON=1,
     ARMOR,
-    POTION
+    POTION,
+	WAND
 } Item_Types;
 enum
 {
@@ -81,6 +82,22 @@ public:
 	inline std::vector<Effect>& getEffects(){return this->_effects;}
 
     Potion* Clone()const;
+};
+//////////WAND//////////
+class Wand: public Item
+{
+private:
+	Spell* _spell;
+	unsigned short int _charges;
+public:
+	Wand();
+	~Wand();
+	inline Spell& getSpell(){return *this->_spell;}
+	inline unsigned short int getCharges(){return this->_charges;}
+	void setSpell(Spell* s);
+	inline void setCharges(unsigned short int i){this->_charges=i;}
+
+	Wand* Clone()const;
 };
 
 #endif

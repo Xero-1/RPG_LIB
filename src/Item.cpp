@@ -42,3 +42,21 @@ Potion* Potion::Clone()const
 {
     return new Potion(*this);
 }
+//////////WAND//////////
+Wand::Wand(): Item()
+{
+	setType(WAND);
+	this->_spell=nullptr;
+	this->_charges=0;
+}
+Wand::~Wand(){}
+void Wand::setSpell(Spell* s)
+{
+	delete this->_spell;
+	this->_spell=s;
+}
+
+Wand* Wand::Clone()const
+{
+	return new Wand(*this);
+}
