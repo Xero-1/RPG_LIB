@@ -6,6 +6,38 @@ Creature_simple::Creature_simple(): Entity()
 	this->_AC=0;
 }
 Creature_simple::~Creature_simple(){};
+void Creature_simple::useItem(Item& item)
+{
+	unsigned short int type=item.getType();
+	if(type==POTION)
+	{
+		Potion* i=dynamic_cast<Potion*>(item.Clone());
+		alteredState(_state,i->getEffects());
+	}
+}
+void Creature_simple::castSpell(Creature_simple& obj,Spell& spell)
+{
+	unsigned short int type=spell.getType();
+	if(type==MAGIC_ATTACK)
+	{
+		Magic_attack* s=dynamic_cast<Magic_attack*>(spell.Clone());
+		s->Cast(obj.getHP(),obj.getState());
+	}else if(type==CHARM)
+	{
+		Charm* s=dynamic_cast<Charm*>(spell.Clone());
+		s->Cast(obj.getState());
+	}
+}
+bool Creature_simple::castFromSpellBook(Creature_simple& obj,unsigned int index)
+{
+	if(_MANA._current - _spellBook[index].getCost()>=0)
+	{
+		castSpell(obj,_spellBook[index]);
+		_MANA._current-=_spellBook[index].getCost();
+		return true;
+	}else
+		return false;
+}
 //////////CREATURE COMPLEX//////////
 Creature_complex::Creature_complex(): Creature_simple(), Level()
 {
@@ -26,12 +58,13 @@ void Creature_complex::setArmorPiece(Armor a)
 }
 void Creature_complex::equipItem(Item& item)
 {
-    if(item.getType()==WEAPON)
+	unsigned short int type=item.getType();
+    if(type==WEAPON)
     {
         Weapon* w=dynamic_cast<Weapon*>(item.Clone());
 		setWeapon(*w);
         delete w;
-    }else if(item.getType()==ARMOR)
+    }else if(type==ARMOR)
     {
         Armor *a=dynamic_cast<Armor*>(item.Clone());
         setArmorPiece(*a);
@@ -42,15 +75,6 @@ void Creature_complex::equipItemFromInv(unsigned int index)
 {
     equipItem(_inv[index]);
     _inv.removeItem(index);
-}
-void Creature_complex::useItem(Item& item)
-{
-	unsigned short int type=item.getType();
-	if(type==POTION)
-	{
-		Potion* p=dynamic_cast<Potion*>(item.Clone());
-		alteredState(_state,p->getEffects());
-	}
 }
 void Creature_complex::useItemFromInv(unsigned int index)
 {
@@ -64,10 +88,10 @@ void Creature_complex::update()
 }
 void Creature_complex::updateState()
 {
-	unsigned int size=_state.size();
+	unsigned int size=getState().size();
 	for(int i=0;i<size;i++)
 	{
-		switch(_state[i].getType())
+		switch(getState()[i].getType())
 		{
 			case HEALING:
 				break;
@@ -80,9 +104,9 @@ void Creature_complex::updateState()
 			case PARALYZED:
 				break;
 		}
-		if(_state[i].getTime()<=0)
-			deleteEffect(_state,i);
+		if(getState()[i].getTime()<=0)
+			deleteEffect(getState(),i);
 		else
-			_state[i].setTime(_state[i].getTime()-1);			
+			getState()[i].setTime(getState()[i].getTime()-1);			
 	}
 }
