@@ -9,45 +9,45 @@
 class Entity
 {
 private:
-    std::string _name;
-    std::string _description;
+    std::string name;
+    std::string description;
 public:
     inline Entity()
     {
-        this->_name="NONE";
-        this->_description="NONE";
+        name="NONE";
+        description="NONE";
     }
-    inline std::string getName(){return this->_name;}
-    inline std::string getDescription(){return this->_description;}
-    inline void setName(std::string s){this->_name=s;}
-    inline void setDescription(std::string s){this->_description=s;}
+    inline std::string getName(){return this->name;}
+    inline std::string getDescription(){return this->description;}
+    inline void setName(std::string s){this->name=s;}
+    inline void setDescription(std::string s){this->description=s;}
 };
 //////////COUNTER//////////
 struct Counter
 {
-    float _max;
-    float _current;
+    float MAX;
+    float CURRENT;
 };
 //////////LEVEL//////////
 class Level
 {
 private:
-    unsigned int _level;
-    unsigned int _expNext;
-    unsigned int _expCurrent;
+    unsigned int level;
+    unsigned int expNext;
+    unsigned int expCurrent;
 public:
     inline Level()
     {
-        _level=0;
-        _expNext=0;
-        _expCurrent=0;
+        level=0;
+        expNext=0;
+        expCurrent=0;
     }
-    inline unsigned int getLevel(){return this->_level;}
-    inline unsigned int getExpNext(){return this->_expNext;}
-    inline unsigned int getExpCurrent(){return this->_expCurrent;}
-    inline void setLevel(unsigned int i){this->_level=i;}
-    inline void setExpNext(unsigned int i){this->_expNext=i;}
-    inline void setExpCurrent(unsigned int i){this->_expCurrent=i;}
+    inline unsigned int getLevel(){return this->level;}
+    inline unsigned int getExpNext(){return this->expNext;}
+    inline unsigned int getExpCurrent(){return this->expCurrent;}
+    inline void setLevel(unsigned int i){this->level=i;}
+    inline void setExpNext(unsigned int i){this->expNext=i;}
+    inline void setExpCurrent(unsigned int i){this->expCurrent=i;}
 };
 //////////STATE//////////
 enum
@@ -62,15 +62,18 @@ enum
 class Effect
 {
 private:
-    unsigned short int _type;
-    unsigned int _time;
+    unsigned short int type;
+    unsigned int time;
 public:
-    Effect();
-    ~Effect();
-    inline unsigned short int getType(){return this->_type;}
-    inline unsigned int getTime(){return this->_time;}
-    inline void setType(unsigned short int i){this->_type=i;}
-    inline void setTime(unsigned int i){this->_time=i;}
+    inline Effect()
+	{
+		type=0;
+		time=0;
+	}
+    inline unsigned short int getType(){return this->type;}
+    inline unsigned int getTime(){return this->time;}
+    inline void setType(unsigned short int i){this->type=i;}
+    inline void setTime(unsigned int i){this->time=i;}
 };
 void addEffect(std::vector<Effect>& obj,Effect newEffect);
 void deleteEffect(std::vector<Effect>& obj,unsigned int index);
@@ -79,20 +82,19 @@ void alteredState(std::vector<Effect>& obj,std::vector<Effect> effects);
 class Dice
 {
 private:
-    int _D[3];
+    int D[3];
 public:
     inline Dice()
     {
-        this->_D[0]=0;//FACES
-        this->_D[1]=0;//ROLLS
-        this->_D[2]=0;//MOD
+        D[0]=0;//FACES
+        D[1]=0;//ROLLS
+        D[2]=0;//MOD
     }
-    ~Dice();
     inline void setValues(unsigned int faces,unsigned rolls,int mod)
     {
-        this->_D[0]=faces;
-        this->_D[1]=rolls;
-        this->_D[2]=mod;
+        this->D[0]=faces;
+        this->D[1]=rolls;
+        this->D[2]=mod;
     }
     unsigned int Roll();
     std::string getDescription();

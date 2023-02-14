@@ -1,21 +1,24 @@
 #include "Creature.h"
 
 //////////CREATURE SIMPLE//////////
-Creature_simple::Creature_simple(): Entity()
+Creature::Creature(): Entity()
 {
-	this->_AC=0;
+	this->HP.MAX=0;
+	this->HP.CURRENT=0;
+	this->MP.MAX=0;
+	this->MP.CURRENT=0;
+	this->AC=0;
 }
-Creature_simple::~Creature_simple(){};
-void Creature_simple::useItem(Item& item)
+void Creature::useItem(Item& item)
 {
 	unsigned short int type=item.getType();
 	if(type==POTION)
 	{
 		Potion* i=dynamic_cast<Potion*>(item.Clone());
-		alteredState(_state,i->getEffects());
+		alteredState(state,i->getEffects());
 	}
 }
-void Creature_simple::castSpell(Creature_simple& obj,Spell& spell)
+void Creature::castSpell(Creature& obj,Spell& spell)
 {
 	unsigned short int type=spell.getType();
 	if(type==MAGIC_ATTACK)
@@ -28,33 +31,33 @@ void Creature_simple::castSpell(Creature_simple& obj,Spell& spell)
 		s->Cast(obj.getState());
 	}
 }
-bool Creature_simple::castFromSpellBook(Creature_simple& obj,unsigned int index)
+bool Creature::castFromSpellBook(Creature& obj,unsigned int index)
 {
-	if(_MANA._current - _spellBook[index].getCost()>=0)
+	if(MP.CURRENT-spellBook[index].getCost()>=0)
 	{
-		castSpell(obj,_spellBook[index]);
-		_MANA._current-=_spellBook[index].getCost();
+		castSpell(obj,spellBook[index]);
+		MP.CURRENT-=spellBook[index].getCost();
 		return true;
 	}else
 		return false;
 }
 //////////CREATURE COMPLEX//////////
-Creature_complex::Creature_complex(): Creature_simple(), Level()
+Creature_complex::Creature_complex(): Creature(), Level()
 {
     Armor a;
     for(int i=0;i<FOOT;i++)
     {
         a.setPartCover(i+1);
-        _armorSet[i]=a;
+        armorSet[i]=a;
     }
 }
 Creature_complex::~Creature_complex(){}
 //////////EQUIPMENT//////////
 void Creature_complex::setArmorPiece(Armor a)
 {
-	setAC(getAC() - _armorSet[a.getPartCover()].getDefence());//Deacrease defence of previous piece
-    this->_armorSet[a.getPartCover()]=a;//Set piece
-	setAC(getAC() + _armorSet[a.getPartCover()].getDefence());//Add defence of new piece
+	setAC(getAC()-armorSet[a.getPartCover()].getDEF());//Deacrease defence of previous piece
+    this->armorSet[a.getPartCover()]=a;//Set piece
+	setAC(getAC()+armorSet[a.getPartCover()].getDEF());//Add defence of new piece
 }
 void Creature_complex::equipItem(Item& item)
 {
@@ -73,13 +76,13 @@ void Creature_complex::equipItem(Item& item)
 }
 void Creature_complex::equipItemFromInv(unsigned int index)
 {
-    equipItem(_inv[index]);
-    _inv.removeItem(index);
+    equipItem(inv[index]);
+    inv.removeItem(index);
 }
 void Creature_complex::useItemFromInv(unsigned int index)
 {
-    useItem(_inv[index]);
-    _inv.removeItem(index);
+    useItem(inv[index]);
+    inv.removeItem(index);
 }
 //////////GAME LOOP//////////
 void Creature_complex::update()

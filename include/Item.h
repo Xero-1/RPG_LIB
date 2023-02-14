@@ -25,21 +25,21 @@ enum
 class Item: public Entity
 {
 private:
-    unsigned short int _type;
-    unsigned short int _rarity;
-    unsigned int _valueSell;
-    unsigned int _valueBuy;
+    unsigned short int type;
+    unsigned short int rarity;
+    unsigned int valueSell;
+    unsigned int valueBuy;
 public:
     Item();
     ~Item();
-    inline unsigned short int getType(){return this->_type;}
-    inline unsigned short int getRarity(){return this->_rarity;}
-    inline unsigned int getValueSell(){return this->_valueSell;}
-    inline unsigned int getValueBuy(){return this->_valueBuy;}
-	inline void setType(unsigned short int i){this->_type=i;}
-    inline void setRarity(unsigned short int i){this->_rarity=i;}
-    inline void setValueSell(unsigned int i){this->_valueSell=i;}
-    inline void setValueBuy(unsigned int i){this->_valueBuy=i;}
+    inline unsigned short int getType(){return this->type;}
+    inline unsigned short int getRarity(){return this->rarity;}
+    inline unsigned int getValueSell(){return this->valueSell;}
+    inline unsigned int getValueBuy(){return this->valueBuy;}
+	inline void setType(unsigned short int i){this->type=i;}
+    inline void setRarity(unsigned short int i){this->rarity=i;}
+    inline void setValueSell(unsigned int i){this->valueSell=i;}
+    inline void setValueBuy(unsigned int i){this->valueBuy=i;}
 
     virtual Item*Clone()const=0;
 };
@@ -47,11 +47,11 @@ public:
 class Weapon: public Item
 {
 private:
-    Dice _dAttack;
+    Dice dAttack;
 public:
     Weapon();
     virtual ~Weapon();
-    inline Dice& getDiceAttack(){return this->_dAttack;}
+    inline Dice& getDiceAttack(){return this->dAttack;}
 
     Weapon* Clone()const;
 };
@@ -59,15 +59,15 @@ public:
 class Armor: public Item
 {
 private:
-    unsigned int _defence;
-    unsigned short int _partCover;
+    unsigned int DEF;
+    unsigned short int partCover;
 public:
     Armor();
     virtual ~Armor();
-    inline unsigned int getDefence(){return this->_defence;}
-    inline unsigned short int getPartCover(){return this->_partCover;}
-    inline void setDefence(unsigned int i){this->_defence=i;}
-    inline void setPartCover(unsigned short int i){this->_partCover=i;}
+    inline unsigned int getDEF(){return this->DEF;}
+    inline unsigned short int getPartCover(){return this->partCover;}
+    inline void setDEF(unsigned int i){this->DEF=i;}
+    inline void setPartCover(unsigned short int i){this->partCover=i;}
 
     Armor* Clone()const;
 };
@@ -75,11 +75,11 @@ public:
 class Potion: public Item
 {
 private:
-	std::vector<Effect> _effects;
+	std::vector<Effect> effects;
 public:
     Potion();
     virtual ~Potion();
-	inline std::vector<Effect>& getEffects(){return this->_effects;}
+	inline std::vector<Effect>& getEffects(){return this->effects;}
 
     Potion* Clone()const;
 };
@@ -87,15 +87,15 @@ public:
 class Wand: public Item
 {
 private:
-	Spell* _spell;
-	unsigned short int _charges;
+	Spell* spell;
+	unsigned short int charges;
 public:
 	Wand();
 	~Wand();
-	inline Spell& getSpell(){return *this->_spell;}
-	inline unsigned short int getCharges(){return this->_charges;}
+	inline Spell& getSpell(){return *this->spell;}
+	inline unsigned short int getCharges(){return this->charges;}
 	void setSpell(Spell* s);
-	inline void setCharges(unsigned short int i){this->_charges=i;}
+	inline void setCharges(unsigned short int i){this->charges=i;}
 
 	Wand* Clone()const;
 };

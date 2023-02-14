@@ -1,12 +1,6 @@
 #include "Basics.h"
 
 //////////STATE//////////
-Effect::Effect()
-{
-    this->_type=NULL;
-    this->_time=0;
-}
-Effect::~Effect(){}
 void addEffect(std::vector<Effect>& obj,Effect newEffect)
 {
 	bool b=false;
@@ -34,17 +28,16 @@ void alteredState(std::vector<Effect>& obj,std::vector<Effect> effects)
 	}
 }
 //////////DICE//////////
-Dice::~Dice(){}
 unsigned int Dice::Roll()
 {
-    return diceRoll(_D[0],_D[1],_D[2]);
+    return diceRoll(D[0],D[1],D[2]);
 }
 std::string Dice::getDescription()
 {
     std::string s;
-    s="<"+std::to_string(_D[1])+"D"+std::to_string(_D[0]);
-    s+=_D[2]>=0?" +":" ";
-    s+=std::to_string(_D[2])+">";
+    s="<"+std::to_string(D[1])+"D"+std::to_string(D[0]);
+    s+=D[2]>=0?" +":" ";
+    s+=std::to_string(D[2])+">";
     return s;
 }
 //////////FUNCTIONS//////////
@@ -66,5 +59,5 @@ bool diceCheck(const int check,const int faces,const int mod)
 }
 void rollDamage(Counter& objHP,Dice dAttack)
 {
-	objHP._current-=dAttack.Roll();
+	objHP.CURRENT-=dAttack.Roll();
 }

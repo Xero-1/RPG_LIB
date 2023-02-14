@@ -3,8 +3,8 @@
 //////////SPELL//////////
 Spell::Spell(): Entity(), Level()
 {
-    this->_cost=0;
-    this->_type=NULL;
+    this->cost=0;
+    this->type=NULL;
 }
 Spell::~Spell(){}
 //////////MAGIC_ATTACK//////////
@@ -15,7 +15,7 @@ Magic_attack::Magic_attack(): Spell()
 Magic_attack::~Magic_attack(){}
 void Magic_attack::Cast(Counter& objHP,std::vector<Effect>& objState)
 {
-	rollDamage(objHP,_dAttack);
+	rollDamage(objHP,dAttack);
 	alteredState(objState,getEffects());
 }
 
@@ -37,4 +37,13 @@ void Charm::Cast(std::vector<Effect>& objState)
 Charm* Charm::Clone()const
 {
 	return new Charm(*this);
+}
+
+//////////SPELL BOOK//////////
+Spell_book::Spell_book(){}
+Spell_book::~Spell_book()
+{
+	unsigned int size=spells.size();
+	for(int i=0;i<size;i++)
+		spells.pop_back();
 }

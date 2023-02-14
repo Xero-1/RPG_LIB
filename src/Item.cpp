@@ -3,10 +3,10 @@
 //////////ITEM//////////
 Item::Item(): Entity()
 {
-    this->_type=NULL;
-    this->_rarity=NULL;
-    this->_valueSell=0;
-    this->_valueBuy=0;
+    this->type=NULL;
+    this->rarity=NULL;
+    this->valueSell=0;
+    this->valueBuy=0;
 }
 Item::~Item(){}
 //////////WEAPON//////////
@@ -23,8 +23,8 @@ Weapon* Weapon::Clone()const
 Armor::Armor(): Item()
 {
     setType(ARMOR);
-    this->_defence=0;
-    this->_partCover=NULL;
+    this->DEF=0;
+    this->partCover=NULL;
 }
 Armor::~Armor(){}
 Armor* Armor::Clone()const
@@ -46,14 +46,14 @@ Potion* Potion::Clone()const
 Wand::Wand(): Item()
 {
 	setType(WAND);
-	this->_spell=nullptr;
-	this->_charges=0;
+	this->spell=nullptr;
+	this->charges=0;
 }
 Wand::~Wand(){}
 void Wand::setSpell(Spell* s)
 {
-	delete this->_spell;
-	this->_spell=s;
+	delete this->spell;
+	this->spell=s;
 }
 
 Wand* Wand::Clone()const
