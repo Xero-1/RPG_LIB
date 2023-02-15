@@ -1,3 +1,4 @@
 makefile
 src/Main.cpp
-
+/build
+CMakeLists.txt
